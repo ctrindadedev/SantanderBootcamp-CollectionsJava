@@ -1,14 +1,42 @@
 package main.java.list.Ordenacao;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class OrdenacaoNumeros {
-//  Crie uma classe chamada "OrdenacaoNumeros" que possui uma lista de números inteiros como atributo. Implemente os seguintes métodos:
-//
-//  adicionarNumero(int numero): Adiciona um número à lista.
-//          ordenarAscendente(): Ordena os números da lista em ordem ascendente usando a interface Comparable e a class Collections.
-//  ordenarDescendente(): Ordena os números da lista em ordem descendente usando um Comparable e a class Collections.
-}
 
+    private List<Integer> numerosList;
+
+    public OrdenacaoNumeros() {
+        this.numerosList = new ArrayList<>();
+    }
+
+    public void adicionarNumero(int numero) {
+        this.numerosList.add(numero);
+    }
+
+    public List<Integer> ordenarAscendente() {
+        if (numerosList.isEmpty()) {
+            throw new RuntimeException("A lista está vazia");
+        }
+        List<Integer> listaAscendente = new ArrayList<>(this.numerosList);
+        Collections.sort(listaAscendente);
+        return listaAscendente;
+    }
+    public List<Integer> ordenarDescendente() {
+        if (numerosList.isEmpty()) {
+            throw new RuntimeException("A lista está vazia");
+        }
+        List<Integer> listaDescendente = new ArrayList<>(this.numerosList);
+        listaDescendente.sort(Collections.reverseOrder());
+        return listaDescendente;
+    }
+
+    public void exibirNumeros() {
+        if (numerosList.isEmpty()) {
+            System.out.println("Lista vazia.");
+        } else {
+            System.out.println(this.numerosList);
+        }
+    }
+    }
