@@ -28,6 +28,9 @@ public class EstoqueProdutos {
     return valorTotalEstoque;
   }
 
+
+//  Considerando que os produtos tem todos um diferentes valor
+    
   public Produto obterProdutoMaisCaro() {
     Produto produtoMaisCaro = null;
     double maiorPreco = Double.MIN_VALUE;
@@ -51,6 +54,7 @@ public class EstoqueProdutos {
     }
     return produtoMaisBarato;
   }
+
 
   public Produto obterProdutoMaiorQuantidadeValorTotalNoEstoque() {
     Produto produtoMaiorQuantidadeValorNoEstoque = null;
