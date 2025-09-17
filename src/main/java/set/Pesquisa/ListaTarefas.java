@@ -4,13 +4,110 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ListaTarefas {
-//  adicionarTarefa(String descricao): Adiciona uma nova tarefa ao Set.
-//  removerTarefa(String descricao): Remove uma tarefa do Set de acordo com a descrição, se estiver presente.
-//  exibirTarefas(): Exibe todas as tarefas da lista de tarefas.
-//  contarTarefas(): Conta o número total de tarefas na lista de tarefas.
-//  obterTarefasConcluidas(): Retorna um Set com as tarefas concluídas.
-//          obterTarefasPendentes(): Retorna um Set com as tarefas pendentes.
-//          marcarTarefaConcluida(String descricao): Marca uma tarefa como concluída de acordo com a descrição.
-//  marcarTarefaPendente(String descricao): Marca uma tarefa como pendente de acordo com a descrição.
-//  limparListaTarefas(): Remove todas as tarefas da lista de tarefas.
+
+    private Set<Tarefa> tarefasSet;
+
+    public ListaTarefas() {
+        this.tarefasSet = new HashSet<>();
+    }
+
+    public void adicionarTarefa(String descricao) {
+        tarefasSet.add(new Tarefa(descricao));
+    }
+
+    public void removerTarefa(String descricao) {
+        if (tarefasSet.isEmpty()) {
+            throw new RuntimeException("A lista de tarefas está  vazia!");
+        }
+
+        Tarefa tarefaParaRemover = null;
+        //Busca pela palavra
+        for (Tarefa t : tarefasSet) {
+            if (t.getDescricao().equalsIgnoreCase(descricao)) {
+                tarefaParaRemover = t;
+                break;
+            }
+        }
+        //Remove a tarefa
+        if (tarefaParaRemover != null) {
+            tarefasSet.remove(tarefaParaRemover);
+            System.out.println("Tarefa com a descrição: '" + descricao + "' removida.");
+        } else {
+            System.out.println("Tarefa com a descriçao: '" + descricao + "' não encontrada.");
+        }
+    }
+
+    public void exibirTarefas() {
+        if (tarefasSet.isEmpty()) {
+            throw new RuntimeException("A lista de tarefas está  vazia!");
+        } else {
+            System.out.println(tarefasSet);
+        }
+    }
+
+    public int contarTarefas() {
+        return tarefasSet.size();
+    }
+
+    public void marcarTarefaConcluida(String descricao) {
+        if (tarefasSet.isEmpty()) {
+            throw new RuntimeException("A lista de tarefas está  vazia!");
+        }
+        boolean encontrou = false;
+        for (Tarefa t : tarefasSet) {
+            if (t.getDescricao().equalsIgnoreCase(descricao)) {
+                t.setConcluida(true);
+                System.out.println("Tarefa com a descriçao: '" + descricao + "' marcada como concluída.");
+                encontrou = true;
+                break;
+            }
+        }
+
+        if (!encontrou) {
+            System.out.println("Tarefa com a descriçao: '" + descricao + "' não encontrada.");
+        }
+    }
+
+    public void marcarTarefaPendente(String descricao) {
+        if (tarefasSet.isEmpty()) {
+            throw new RuntimeException("A lista de tarefas está  vazia!");
+        }
+        boolean encontrou = false;
+        for (Tarefa t : tarefasSet) {
+            if (t.getDescricao().equalsIgnoreCase(descricao)) {
+                t.setConcluida(false);
+                System.out.println("Tarefa com a descriçao:'" + descricao + "' marcada como pendente.");
+                encontrou = true;
+                break;
+            }
+        }
+        if (!encontrou) {
+            System.out.println("Tarefa com a descriçao: '" + descricao + "' não encontrada.");
+        }
+    }
+
+    public Set<Tarefa> obterTarefasConcluidas() {
+        Set<Tarefa> tarefasConcluidas = new HashSet<>();
+        for (Tarefa t : tarefasSet) {
+            if (t.isConcluida()) {
+                tarefasConcluidas.add(t);
+            }
+        }
+        return tarefasConcluidas;
+    }
+
+    public Set<Tarefa> obterTarefasPendentes() {
+        Set<Tarefa> tarefasPendentes = new HashSet<>();
+        for (Tarefa t : tarefasSet) {
+            if (!t.isConcluida()) {
+                tarefasPendentes.add(t);
+            }
+        }
+        return tarefasPendentes;
+    }
+
+    public void limparListaTarefas() {
+        tarefasSet.clear();
+        System.out.println("Lista de tarefas limpa.");
+    }
 }
